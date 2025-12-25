@@ -3,6 +3,7 @@
     grid-template-columns: repeat(10, 9vw);
     grid-template-rows: repeat(10, 9vw);
     gap: 0.2vw;
+    touch-action: none;
 }
 
 .tile {
