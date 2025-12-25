@@ -1,15 +1,15 @@
 #game-board {
     display: grid;
-    grid-template-columns: repeat(10, 9vw);
-    grid-template-rows: repeat(10, 9vw);
-    gap: 0.2vw;
+    grid-template-columns: repeat(10, 9vmin);
+    grid-template-rows: repeat(10, 9vmin);
+    gap: 0.5vmin;
     touch-action: none;
 }
 
 .tile {
-    width: 9vw;
-    height: 9vw;
-    border-radius: 1vw;
+    width: 9vmin;
+    height: 9vmin;
+    border-radius: 1vmin;
     cursor: pointer;
 }
 
