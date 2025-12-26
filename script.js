@@ -1,6 +1,10 @@
 const board_width = 10;
 const piece_colours = ["red", "blue", "green", "yellow", "purple"];
+let firstClear = true;
 let board = [];
+
+let score = 0;
+let swaps = 0;
 
 function createBoard() {
     for (let i = 0; i < board_width * board_width; i++) {
@@ -10,9 +14,12 @@ function createBoard() {
 }
 
 const gameBoard = document.getElementById("game-board");
+const scoreBoard = document.getElementById("score-board");
 
 function drawBoard() {
     gameBoard.innerHTML = "";
+    scoreBoard.innerHTML = `Tiles cleared: ${score}<br>Swaps Used: ${swaps}`;
+    console.log(score);
 
     board.forEach((color, index) => {
         const tile = document.createElement("div");
@@ -22,27 +29,30 @@ function drawBoard() {
     });
 }
 
+function placeScoreboard() {
+  const game = document.getElementById("game-board");
+  const scoreboard = document.getElementById("score-board");
+
+  const rect = game.getBoundingClientRect();
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+
+  if (vw > vh) {
+    // Wider screen → place scoreboard to the right
+    scoreboard.style.left = `${rect.right + 20}px`;
+    scoreboard.style.top = `${rect.top}px`;
+  } else {
+    // Taller screen → place scoreboard below
+    scoreboard.style.left = `${rect.left}px`;
+    scoreboard.style.top = `${rect.bottom + 20}px`;
+  }
+}
+
+window.addEventListener('resize', placeScoreboard);
+window.addEventListener('load', placeScoreboard);
 
 createBoard();
 drawBoard();
-
-// let firstSelectedIndex = null;
-
-// gameBoard.addEventListener("click", (e) => {
-//     if (!e.target.classList.contains("tile")) return;
-
-//     const index = +e.target.dataset.index;
-
-//     if (firstSelectedIndex === null) {
-//         firstSelectedIndex = index;
-//         return;
-//     }
-
-//     swapByIndex(firstSelectedIndex, index);
-//     firstSelectedIndex = null;
-//     checkBoard();
-// });
-
 
 let startSwapIndex = null;
 
@@ -75,6 +85,7 @@ gameBoard.addEventListener("pointerup", () => {
 
 function swapByIndex(i1, i2) {
     [board[i1], board[i2]] = [board[i2], board[i1]];
+    swaps++;
 }
 
 function isAdjacent(i1, i2) {
@@ -140,7 +151,10 @@ function checkMatches() {
     //removing matches
     known_matches.forEach(index => board[index] = null);
 
-    if (known_matches.length > 0) { return true; }
+    if (known_matches.length > 0) { 
+        score = score + known_matches.length;
+        return true;
+    }
     return false;
 
 }
@@ -183,10 +197,12 @@ async function checkBoard() {
             await delay(100);
         }
     }
+    if (firstClear) {
+        score = 0;
+        firstClear = false;
+    }
     drawBoard();
 }
-
-
 
 
 

@@ -1,0 +1,3 @@
+Changes
+- Each colour different symbols
+- More colours as it gets harder

@@ -1,8 +1,16 @@
+html, body {
+  margin: 1vmin;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
 #game-board {
     display: grid;
     grid-template-columns: repeat(10, 9vmin);
     grid-template-rows: repeat(10, 9vmin);
-    gap: 0.5vmin;
+    gap: 0.7vmin;
     touch-action: none;
 }
 
@@ -11,6 +19,8 @@
     height: 9vmin;
     border-radius: 1vmin;
     cursor: pointer;
+    border: 0.2vmin solid #0000005e ;
+    
 }
 
 
@@ -19,3 +29,11 @@
 .green { background: #2ecc71; }
 .yellow { background: #f1c40f; }
 .purple { background: #9b59b6; }
+
+#score-board {
+  position: absolute;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 20px;
+  background: #eeeeee;
+}
